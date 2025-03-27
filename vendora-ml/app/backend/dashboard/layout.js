@@ -1,18 +1,24 @@
-import React from 'react';
-import Sidebar from '@/components/backend/Sidebar';  // ✅ Sidebar
-import Navbar from '@/components/backend/Navbar';   // ✅ Renamed import
+"use client";
+import React, { useState } from 'react';
+import Sidebar from '@/components/backend/Sidebar';
+import Navbar from '@/components/backend/Navbar';
 
 export default function Layout({ children }) {
-  return (
+  const [showSidebar,setShowSidebar]=useState(false);
+    return (
     <div className="flex">
       {/* Sidebar */}
-      <Sidebar />
-
-      {/* Main Content */}
-      <div className="w-full">
-        <Navbar />  {/* ✅ Now uses the correct component name */}
-        <main className='ml-60 p-8 bg-slate-950 text-slate-50 min-h-screen mt-15'>{children}</main>
+      <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
+  
+      <div className="lg:ml-60 ml-0 flex-grow bg-slate-100 min-h-screen">
+        {/* Header */}
+        <Navbar showSidebar={showSidebar} setShowSidebar={setShowSidebar}/>
+        
+        <main className="p-8 bg-slate-100 dark:bg-slate-900 text-slate-50 mt-16">
+          {children}
+        </main>
       </div>
     </div>
   );
+  
 }
